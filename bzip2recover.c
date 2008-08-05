@@ -24,6 +24,8 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 
 /* This program records bit locations in the file to be recovered.
@@ -269,6 +271,19 @@ static Bool endsInBz2 ( Char* name )
        name[n-1] == '2');
 }
 
+/*---------------------------------------------*/
+/* Open an output file safely with O_EXCL and good permissions */
+FILE* fopen_output( Char* name, const char* mode )
+{
+  FILE *fp;
+  int   fh;
+   
+  fh = open(name, O_WRONLY|O_CREAT|O_EXCL, 0600);
+  if (fh == -1) return NULL;
+  fp = fdopen(fh, mode);
+  if (fp == NULL) close(fh);
+  return fp;
+}
 
 /*---------------------------------------------------*/
 /*---                                             ---*/
@@ -486,7 +501,7 @@ Int32 main ( Int32 argc, Char** argv )
          fprintf ( stderr, "   writing block %d to `%s' ...\n",
                            wrBlock+1, outFileName );
 
-         outFile = fopen ( outFileName, "wb" );
+         outFile = fopen_output ( outFileName, "wb" );
          if (outFile == NULL) {
             fprintf ( stderr, "%s: can't write `%s'\n",
                       progName, outFileName );

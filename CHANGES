@@ -312,7 +312,6 @@ Fixes some minor bugs since the last version, 1.0.3.
 
 * Fix minor doc/comment bugs.
 
-
 1.0.5 (10 Dec 07)
 ~~~~~~~~~~~~~~~~~
 Security fix only.  Fixes CERT-FI 20469 as it applies to bzip2.
