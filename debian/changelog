@@ -1,3 +1,9 @@
+bzip2 (1.0.5-3) UNRELEASED; urgency=low
+
+  * NOT RELEASE YET
+
+ -- Santiago Ruano Rincón <santiago@debian.org>  Tue, 09 Jun 2009 15:51:36 +0200
+
 bzip2 (1.0.5-2) unstable; urgency=low
 
   * Standards version is 3.8.1
