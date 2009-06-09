@@ -1,11 +1,11 @@
-bzip2 (1.0.5-2) UNRELEASED; urgency=low
+bzip2 (1.0.5-2) unstable; urgency=low
 
   * Standards version is 3.8.1
   * Add Vcs-* fields in control file
   * Reinstate the $(CROSS) variable in the call to $(MAKE)
     Closes: #529404
 
- -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 09 Jun 2009 22:23:00 +1000
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 09 Jun 2009 22:49:51 +1000
 
 bzip2 (1.0.5-1) unstable; urgency=low
 
