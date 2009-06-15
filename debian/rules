@@ -135,8 +135,10 @@ binary-indep: build
 
 	# Add md5sums
 	for i in doc; do \
-	  md5sum `find * -type f ! -regex "debian/tmp-$$i/DEBIAN/.*"` >debian/tmp-$$i/DEBIAN/md5sums </dev/null ; \
-          chmod 644 debian/tmp-$$i/DEBIAN/md5sums \
+	  cd debian/tmp-$$i/; \
+	  md5sum `find * -type f ! -regex "DEBIAN/.*"` >DEBIAN/md5sums </dev/null; \
+          chmod 644 debian/tmp-$$i/DEBIAN/md5sums; \
+	  cd ../..; \
 	done
 
 	# Fix perms
@@ -253,8 +255,10 @@ binary-arch: build
 
 	# Add md5sums
 	for i in run dev lib; do \
-	  md5sum `find * -type f ! -regex "debian/tmp-$$i/DEBIAN/.*"` >debian/tmp-$$i/DEBIAN/md5sums </dev/null \
-          chmod 644 debian/tmp-$$i/DEBIAN/md5sums \
+	  cd debian/tmp-$$i/; \
+	  md5sum `find * -type f ! -regex "DEBIAN/.*"` >DEBIAN/md5sums </dev/null; \
+          chmod 644 debian/tmp-$$i/DEBIAN/md5sums; \
+	  cd ../..; \
 	done
 
 	# Fix perms
