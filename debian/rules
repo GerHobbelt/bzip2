@@ -133,6 +133,12 @@ binary-indep: build
 	  chmod +x debian/tmp-$$i/DEBIAN/prerm; \
 	done
 
+	# Add md5sums
+	for i in doc; do \
+	  md5sum `find * -type f ! -regex "debian/tmp-$$i/DEBIAN/.*"` >debian/tmp-$$i/DEBIAN/md5sums </dev/null ; \
+          chmod 644 debian/tmp-$$i/DEBIAN/md5sums \
+	done
+
 	# Fix perms
 	chown -R root.root debian/tmp-doc
 	chmod -R a+rX-wts,u+w debian/tmp-doc
@@ -244,6 +250,12 @@ binary-arch: build
 	cp debian/preinst-run debian/tmp-run/DEBIAN/preinst
 	cp debian/postrm-lib debian/tmp-lib/DEBIAN/postrm
 	chmod +x debian/tmp-run/DEBIAN/preinst debian/tmp-lib/DEBIAN/postrm
+
+	# Add md5sums
+	for i in run dev lib; do \
+	  md5sum `find * -type f ! -regex "debian/tmp-$$i/DEBIAN/.*"` >debian/tmp-$$i/DEBIAN/md5sums </dev/null \
+          chmod 644 debian/tmp-$$i/DEBIAN/md5sums \
+	done
 
 	# Fix perms
 	chown -R root.root debian/tmp*
