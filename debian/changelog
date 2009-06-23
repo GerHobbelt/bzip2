@@ -1,8 +1,7 @@
-bzip2 (1.0.5-3) UNRELEASED; urgency=low
+bzip2 (1.0.5-3) unstable; urgency=low
 
   [ Santiago Ruano Rincón ]
-  * NOT RELEASE YET
-  * Added md5sums files. (Closes: #484342)
+  * Add md5sums files. (Closes: #484342)
   * Update debian/copyright.
 
   [ Anibal Monsalve Salazar ]
@@ -11,7 +10,7 @@ bzip2 (1.0.5-3) UNRELEASED; urgency=low
     lib32bz2-1.0 pre-depends on libc6-i386 (>= 2.9-18)
     Closes: #533007
 
- -- Anibal Monsalve Salazar <anibal@debian.org>  Sun, 21 Jun 2009 00:29:38 +1000
+ -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 23 Jun 2009 15:23:59 +1000
 
 bzip2 (1.0.5-2ubuntu1) karmic; urgency=low
 
@@ -41,7 +40,7 @@ bzip2 (1.0.5-1) unstable; urgency=low
   * Fix "bzdiff doesn't work if $TMPDIR contains spaces"; closes: #493710
     Patch by Vincent Lefevre <vincent@vinc17.org>
   * Standards-Version is 3.8.0
-  * Fixed the following lintian issues:
+  * Fix the following lintian issues:
     W: bzip2-doc: doc-base-unknown-section bzip2:9 Apps/Tools
 
  -- Anibal Monsalve Salazar <anibal@debian.org>  Tue, 05 Aug 2008 19:52:24 +1000
