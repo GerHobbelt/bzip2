@@ -1,4 +1,4 @@
-bzip2 (1.0.5-4) unstable; urgency=low
+bzip2 (1.0.5-4) UNRELEASED; urgency=low
 
   * New co-maintainer
   * Add -h and --help options to the manual page (closes: 517257)
