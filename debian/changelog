@@ -1,3 +1,10 @@
+bzip2 (1.0.5-4) unstable; urgency=low
+
+  * New co-maintainer
+  * Add -h and --help options to the manual page (closes: 517257)
+
+ -- Jorge Ernesto Guevara Cuenca <jguevara@debiancolombia>  Wed, 08 Jul 2009 05:12:59 -0500
+
 bzip2 (1.0.5-3) unstable; urgency=low
 
   [ Santiago Ruano Rincón ]
