@@ -1,9 +1,15 @@
 bzip2 (1.0.5-4) UNRELEASED; urgency=low
 
-  * New co-maintainer
-  * Add -h and --help options to the manual page (closes: 517257)
+  [Jorge Ernesto Guevara Cuenca]
+  * New co-maintainer. Jorge Ernesto Guevara Cuenca <jguevara@debiancolombia.org> 
+  * Add -h and --help options to the manual page (Closes: 517257)
 
- -- Jorge Ernesto Guevara Cuenca <jguevara@debiancolombia.org>  Wed, 08 Jul 2009 05:12:59 -0500
+  [Santiago Ruano Rincón]
+  * Move DEBIAN/md5sums to a macro and rewrite to be more robust using find | 
+    xargs and to drop the broken chmod calls. Thank to Loïc Minier from
+    Ubuntu. (Closes: #565393)
+
+ -- Santiago Ruano Rincón <santiago@debian.org>  Mon, 18 Jan 2010 10:46:25 +0100
 
 bzip2 (1.0.5-3) unstable; urgency=low
 

@@ -31,6 +31,8 @@ ifneq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 DEBSTRIP:=:
 endif
 
+gen_md5sums = cd debian/tmp-$(1)/ && find -type f \! -regex '.*/DEBIAN/.*' -printf '%P\0' | xargs -r0 md5sum >DEBIAN/md5sums
+
 DEBVERSION:=$(shell head -n 1 debian/changelog \
 		    | sed -e 's/^[^(]*(\([^)]*\)).*/\1/')
 UPVERSION:=$(shell echo $(DEBVERSION) | sed -e 's/-[0-9.]*$$//')
@@ -134,12 +136,7 @@ binary-indep: build
 	done
 
 	# Add md5sums
-	for i in doc; do \
-	  cd debian/tmp-$$i/; \
-	  md5sum `find * -type f ! -regex "DEBIAN/.*"` >DEBIAN/md5sums </dev/null; \
-          chmod 644 debian/tmp-$$i/DEBIAN/md5sums; \
-	  cd ../..; \
-	done
+	$(call gen_md5sums,doc)
 
 	# Fix perms
 	chown -R root.root debian/tmp-doc
@@ -254,12 +251,9 @@ binary-arch: build
 	chmod +x debian/tmp-run/DEBIAN/preinst debian/tmp-lib/DEBIAN/postrm
 
 	# Add md5sums
-	for i in run dev lib; do \
-	  cd debian/tmp-$$i/; \
-	  md5sum `find * -type f ! -regex "DEBIAN/.*"` >DEBIAN/md5sums </dev/null; \
-          chmod 644 debian/tmp-$$i/DEBIAN/md5sums; \
-	  cd ../..; \
-	done
+	$(call gen_md5sums,run)
+	$(call gen_md5sums,lib)
+	$(call gen_md5sums,dev)
 
 	# Fix perms
 	chown -R root.root debian/tmp*
@@ -335,6 +329,9 @@ endif
 	  chmod +x debian/tmp-$${i}64/DEBIAN/prerm; \
 	done
 
+	$(call gen_md5sums,lib64)
+	$(call gen_md5sums,dev64)
+
 	chown -R root.root debian/tmp*64
 	chmod -R a+rX-wts,u+w debian/tmp*64
 
@@ -394,6 +391,9 @@ endif
 	  chmod +x debian/tmp-$${i}32/DEBIAN/postinst; \
 	  chmod +x debian/tmp-$${i}32/DEBIAN/prerm; \
 	done
+
+	$(call gen_md5sums,lib32)
+	$(call gen_md5sums,dev32)
 
 	chown -R root.root debian/tmp*32
 	chmod -R a+rX-wts,u+w debian/tmp*32
