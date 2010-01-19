@@ -1,4 +1,4 @@
-bzip2 (1.0.5-4) UNRELEASED; urgency=low
+bzip2 (1.0.5-4) unstable; urgency=low
 
   [Jorge Ernesto Guevara Cuenca]
   * New co-maintainer. Jorge Ernesto Guevara Cuenca <jguevara@debiancolombia.org> 
