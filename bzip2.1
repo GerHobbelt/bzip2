@@ -188,6 +188,14 @@ to panic.
 
 .SH OPTIONS
 .TP
+.B \-1 (or \-\-fast) to \-9 (or \-\-best)
+Set the block size to 100 k, 200 k ..  900 k when compressing.  Has no
+effect when decompressing.  See MEMORY MANAGEMENT below.
+The \-\-fast and \-\-best aliases are primarily for GNU gzip 
+compatibility.  In particular, \-\-fast doesn't make things
+significantly faster.  
+And \-\-best merely selects the default behaviour.
+.TP
 .B \-c --stdout
 Compress or decompress to standard output.
 .TP
@@ -204,14 +212,6 @@ mechanism, and forces
 .I bzip2
 to decompress.
 .TP
-.B \-z --compress
-The complement to \-d: forces compression, regardless of the
-invocation name.
-.TP
-.B \-t --test
-Check integrity of the specified file(s), but don't decompress them.
-This really performs a trial decompression and throws away the result.
-.TP
 .B \-f --force
 Force overwrite of output files.  Normally,
 .I bzip2 
@@ -225,9 +225,16 @@ bzip2 normally declines to decompress files which don't have the
 correct magic header bytes.  If forced (-f), however, it will pass
 such files through unmodified.  This is how GNU gzip behaves.
 .TP
+.B \-h --help
+Print a help message and exit.
+.TP
 .B \-k --keep
 Keep (don't delete) input files during compression
 or decompression.
+.TP
+.B \-q --quiet
+Suppress non-essential warning messages.  Messages pertaining to
+I/O errors and other critical events will not be suppressed.
 .TP
 .B \-s --small
 Reduce memory usage, for compression, decompression and testing.  Files
@@ -240,28 +247,21 @@ memory use to around the same figure, at the expense of your compression
 ratio.  In short, if your machine is low on memory (8 megabytes or
 less), use \-s for everything.  See MEMORY MANAGEMENT below.
 .TP
-.B \-q --quiet
-Suppress non-essential warning messages.  Messages pertaining to
-I/O errors and other critical events will not be suppressed.
+.B \-t --test
+Check integrity of the specified file(s), but don't decompress them.
+This really performs a trial decompression and throws away the result.
 .TP
 .B \-v --verbose
 Verbose mode -- show the compression ratio for each file processed.
 Further \-v's increase the verbosity level, spewing out lots of
 information which is primarily of interest for diagnostic purposes.
 .TP
-.B \-h --help
-Print a help message and exit.
+.B \-z --compress
+The complement to \-d: forces compression, regardless of the
+invocation name.
 .TP
 .B \-L --license -V --version
 Display the software version, license terms and conditions.
-.TP
-.B \-1 (or \-\-fast) to \-9 (or \-\-best)
-Set the block size to 100 k, 200 k ..  900 k when compressing.  Has no
-effect when decompressing.  See MEMORY MANAGEMENT below.
-The \-\-fast and \-\-best aliases are primarily for GNU gzip 
-compatibility.  In particular, \-\-fast doesn't make things
-significantly faster.  
-And \-\-best merely selects the default behaviour.
 .TP
 .B \--
 Treats all subsequent arguments as file names, even if they start
