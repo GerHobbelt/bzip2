@@ -1,14 +1,6 @@
-bzip2 (1.0.5-6) unstable; urgency=low
-
-  [Jorge Ernesto Guevara Cuenca]
-  * Sorted list options in manual page and in program's '--help' output in
-    alphabetical order (Closes: #517258)
-
- --
-
 bzip2 (1.0.5-5) UNRELEASED; urgency=low
 
-  * NOT RELEASE YET
+  * NOT RELEASE YET 
 
  -- Santiago Ruano Rincón <santiago@debian.org>  Tue, 19 Jan 2010 15:27:37 +0100
 
