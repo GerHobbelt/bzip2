@@ -7,8 +7,8 @@
    This file is part of bzip2/libbzip2, a program and library for
    lossless, block-sorting data compression.
 
-   bzip2/libbzip2 version 1.0.5 of 10 December 2007
-   Copyright (C) 1996-2007 Julian Seward <jseward@bzip.org>
+   bzip2/libbzip2 version 1.0.6 of 6 September 2010
+   Copyright (C) 1996-2010 Julian Seward <jseward@bzip.org>
 
    Please read the WARNING, DISCLAIMER and PATENTS sections in the 
    README file.
@@ -24,8 +24,6 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
 
 
 /* This program records bit locations in the file to be recovered.
@@ -271,19 +269,6 @@ static Bool endsInBz2 ( Char* name )
        name[n-1] == '2');
 }
 
-/*---------------------------------------------*/
-/* Open an output file safely with O_EXCL and good permissions */
-FILE* fopen_output( Char* name, const char* mode )
-{
-  FILE *fp;
-  int   fh;
-   
-  fh = open(name, O_WRONLY|O_CREAT|O_EXCL, 0600);
-  if (fh == -1) return NULL;
-  fp = fdopen(fh, mode);
-  if (fp == NULL) close(fh);
-  return fp;
-}
 
 /*---------------------------------------------------*/
 /*---                                             ---*/
@@ -328,7 +313,7 @@ Int32 main ( Int32 argc, Char** argv )
    inFileName[0] = outFileName[0] = 0;
 
    fprintf ( stderr, 
-             "bzip2recover 1.0.5: extracts blocks from damaged .bz2 files.\n" );
+             "bzip2recover 1.0.6: extracts blocks from damaged .bz2 files.\n" );
 
    if (argc != 2) {
       fprintf ( stderr, "%s: usage is `%s damaged_file_name'.\n",
@@ -501,7 +486,7 @@ Int32 main ( Int32 argc, Char** argv )
          fprintf ( stderr, "   writing block %d to `%s' ...\n",
                            wrBlock+1, outFileName );
 
-         outFile = fopen_output ( outFileName, "wb" );
+         outFile = fopen ( outFileName, "wb" );
          if (outFile == NULL) {
             fprintf ( stderr, "%s: can't write `%s'\n",
                       progName, outFileName );

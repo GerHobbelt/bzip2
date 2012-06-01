@@ -7,8 +7,8 @@
    This file is part of bzip2/libbzip2, a program and library for
    lossless, block-sorting data compression.
 
-   bzip2/libbzip2 version 1.0.5 of 10 December 2007
-   Copyright (C) 1996-2007 Julian Seward <jseward@bzip.org>
+   bzip2/libbzip2 version 1.0.6 of 6 September 2010
+   Copyright (C) 1996-2010 Julian Seward <jseward@bzip.org>
 
    Please read the WARNING, DISCLAIMER and PATENTS sections in the 
    README file.
@@ -1605,11 +1605,11 @@ void license ( void )
     "bzip2, a block-sorting file compressor.  "
     "Version %s.\n"
     "   \n"
-    "   Copyright (C) 1996-2007 by Julian Seward.\n"
+    "   Copyright (C) 1996-2010 by Julian Seward.\n"
     "   \n"
     "   This program is free software; you can redistribute it and/or modify\n"
     "   it under the terms set out in the LICENSE file, which is included\n"
-    "   in the bzip2-1.0.5 source distribution.\n"
+    "   in the bzip2-1.0.6 source distribution.\n"
     "   \n"
     "   This program is distributed in the hope that it will be useful,\n"
     "   but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
@@ -1890,9 +1890,7 @@ IntNative main ( IntNative argc, Char *argv[] )
                case '8': blockSize100k    = 8; break;
                case '9': blockSize100k    = 9; break;
                case 'V':
-               case 'L': license();
-			 exit ( 0 );
-			 break;
+               case 'L': license();            break;
                case 'v': verbosity++; break;
                case 'h': usage ( progName );
                          exit ( 0 );
@@ -1918,8 +1916,8 @@ IntNative main ( IntNative argc, Char *argv[] )
       if (ISFLAG("--keep"))              keepInputFiles   = True;    else
       if (ISFLAG("--small"))             smallMode        = True;    else
       if (ISFLAG("--quiet"))             noisy            = False;   else
-      if (ISFLAG("--version"))           { license(); exit ( 0 ); }  else
-      if (ISFLAG("--license"))           { license(); exit ( 0 ); }  else
+      if (ISFLAG("--version"))           license();                  else
+      if (ISFLAG("--license"))           license();                  else
       if (ISFLAG("--exponential"))       workFactor = 1;             else 
       if (ISFLAG("--repetitive-best"))   redundant(aa->name);        else
       if (ISFLAG("--repetitive-fast"))   redundant(aa->name);        else
@@ -2005,14 +2003,12 @@ IntNative main ( IntNative argc, Char *argv[] )
             testf ( aa->name );
 	 }
       }
-      if (testFailsExist) {
-	 if (noisy) {
-            fprintf ( stderr,
-               "\n"
-               "You can use the `bzip2recover' program to attempt to recover\n"
-               "data from undamaged sections of corrupted files.\n\n"
-            );
-	 }
+      if (testFailsExist && noisy) {
+         fprintf ( stderr,
+           "\n"
+           "You can use the `bzip2recover' program to attempt to recover\n"
+           "data from undamaged sections of corrupted files.\n\n"
+         );
          setExit(2);
          exit(exitValue);
       }
