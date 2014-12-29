@@ -12,8 +12,8 @@
 # in the file LICENSE.
 # ------------------------------------------------------------------
 
-include ../config.in
 include ../config.mk
+include ../config.in
 
 
 #BUILD_DIR = $(TARGETDIR)/usr/sbin
