@@ -63,11 +63,6 @@ if(MSVC)
     add_definitions(-D_FILE_OFFSET_BITS=64)
     add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
     add_definitions(-D_CRT_NONSTDC_NO_DEPRECATE)
-    # set(CMAKE_C_FLAGS_RELEASE             "${CMAKE_C_FLAGS_RELEASE} /GL")
-    # set(CMAKE_CXX_FLAGS_RELEASE           "${CMAKE_CXX_FLAGS_RELEASE} /GL")
-    # set(CMAKE_EXE_LINKER_FLAGS_RELEASE    "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /LTCG")
-    # set(CMAKE_MODULE_LINKER_FLAGS_RELEASE "${CMAKE_MODULE_LINKER_FLAGS_RELEASE} /LTCG")
-    # set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /LTCG")
 
     set(VER_PRODUCTNAME_STR "bzip2 - a freely available, patent free, high-quality data compressor.")
     set(VER_LEGALCOPYRIGHT_STR "copyright (C) 1996-2010 Julian R Seward")
@@ -200,8 +195,3 @@ add_test(NAME decompress_block_size_3
     )
     
 endif()
-
-# echo EXPORTS > bzip2.def
-# nm bzip2.dll | grep ' T _' | sed 's/.* T _//' >> bzip2.def
-# pexports bzip2.dll > bzip2.def
-# lib /def:bzip2.def /machine:x86
