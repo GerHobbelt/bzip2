@@ -21,7 +21,7 @@ if (MSVC)
     if (NOT DEFINED MSVCVER)
         math(EXPR MSVCVER "(${MSVC_VERSION} / 10) - 60")
     endif()
-    
+
     # add the runtiume version and target architecture into the DLL name per MS
     # guidelines
     set(MSVC_SHARED_SUFFIX_BASE "-${PROJECT_VERSION_MAJOR}-vc${MSVCVER}-mt-${ARCH}")
@@ -77,17 +77,17 @@ if(MSVC)
          ${CMAKE_SOURCE_DIR}/version.rc.cmakein
          ${CMAKE_CURRENT_BINARY_DIR}/version.rc
          @ONLY
-     )         
+     )
     set(bzip2_DLLSRCS
         ${CMAKE_SOURCE_DIR}/libbz2.def
         ${CMAKE_CURRENT_BINARY_DIR}/version.rc
-    )  
+    )
 endif(MSVC)
 
 add_library(${local_lib_name} SHARED ${bzip2_lib_SRCS} ${bzip2_lib_HDRS} ${bzip2_DLLSRCS})
-set_target_properties(${local_lib_name} PROPERTIES 
+set_target_properties(${local_lib_name} PROPERTIES
     SOVERSION ${PROJECT_VERSION}
-    VERSION ${PROJECT_VERSION_MAJOR}    
+    VERSION ${PROJECT_VERSION_MAJOR}
     PUBLIC_HEADER bzlib.h
 )
 
@@ -127,7 +127,7 @@ if (BUILD_TESTING)
     enable_testing()
 
     add_executable(spew spewG)
-    
+
 add_test(NAME compress_block_size_1
     COMMAND ${CMAKE_COMMAND}
     -DTEST_PROG=$<TARGET_FILE:bzip2_bin>
@@ -193,5 +193,5 @@ add_test(NAME decompress_block_size_3
     -DSOURCEDIR=${CMAKE_CURRENT_SOURCE_DIR}
     -P ${CMAKE_CURRENT_SOURCE_DIR}/runtest.cmake
     )
-    
+
 endif()
