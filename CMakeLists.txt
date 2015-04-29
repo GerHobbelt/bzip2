@@ -3,7 +3,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-project(bzip2
+project(BZip2
     VERSION 1.0.6
     LANGUAGES C
 )
