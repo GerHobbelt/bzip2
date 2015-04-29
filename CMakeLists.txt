@@ -84,7 +84,7 @@ if(MSVC)
     )
 endif(MSVC)
 
-add_library(${local_lib_name} SHARED ${bzip2_lib_SRCS} ${bzip2_lib_HDRS} ${bzip2_DLLSRCS})
+add_library(${local_lib_name} ${bzip2_lib_SRCS} ${bzip2_lib_HDRS} ${bzip2_DLLSRCS})
 set_target_properties(${local_lib_name} PROPERTIES
     SOVERSION ${PROJECT_VERSION}
     VERSION ${PROJECT_VERSION_MAJOR}
