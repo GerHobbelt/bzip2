@@ -1,3 +1,6 @@
+# Copyright (c) 2015, Ruslan Baratov
+# All rights reserved.
+
 cmake_minimum_required(VERSION 3.0)
 
 project(bzip2
@@ -52,7 +55,9 @@ set(bzip2_html
     manual.html
 )
 
-set(CMAKE_DEBUG_POSTFIX "d")
+if(NOT DEFINED CMAKE_DEBUG_POSTFIX)
+  set(CMAKE_DEBUG_POSTFIX "d")
+endif()
 
 if(MSVC)
     add_definitions(-D_FILE_OFFSET_BITS=64)
