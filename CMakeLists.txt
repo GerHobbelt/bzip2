@@ -212,8 +212,13 @@ write_basic_package_version_file(
 # Note: variable 'targets_export_name' used
 configure_file("cmake/Config.cmake.in" "${project_config}" @ONLY)
 
+set(targets_to_install bz2)
+if(NOT IOS)
+  list(APPEND targets_to_install bzip2recover bzip2_bin)
+endif()
+
 install(
-    TARGETS bz2 bzip2recover bzip2_bin
+    TARGETS ${targets_to_install}
     EXPORT "${targets_export_name}"
     LIBRARY DESTINATION "lib"
     ARCHIVE DESTINATION "lib"
