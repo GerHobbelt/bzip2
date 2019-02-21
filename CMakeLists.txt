@@ -12,6 +12,8 @@ set(local_lib_name bz2)
 
 option(BUILD_TESTING "Build the tests." ON)
 
+string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "WindowsStore" is_windows_store)
+
 if (MSVC)
     if (NOT DEFINED ARCH)
         set (ARCH ${MSVC_C_ARCHITECTURE_ID})
@@ -95,15 +97,16 @@ if(MSVC)
     set_target_properties(${local_lib_name} PROPERTIES PDB_NAME "${local_lib_name}${MSVC_SHARED_SUFFIX_BASE}")
 endif()
 
-# bzip2recover
-add_executable(bzip2recover bzip2recover.c)
-target_link_libraries(bzip2recover bz2)
+if(NOT is_windows_store)
+  # bzip2recover
+  add_executable(bzip2recover bzip2recover.c)
+  target_link_libraries(bzip2recover bz2)
 
-# bzip2
-add_executable(bzip2_bin bzip2.c)
-target_link_libraries(bzip2_bin bz2)
-set_target_properties(bzip2_bin PROPERTIES OUTPUT_NAME bzip2)
-
+  # bzip2
+  add_executable(bzip2_bin bzip2.c)
+  target_link_libraries(bzip2_bin bz2)
+  set_target_properties(bzip2_bin PROPERTIES OUTPUT_NAME bzip2)
+endif()
 
 file(GLOB man1 ${bzip2_SOURCE_DIR}/*.1)
 
@@ -213,7 +216,7 @@ write_basic_package_version_file(
 configure_file("cmake/Config.cmake.in" "${project_config}" @ONLY)
 
 set(targets_to_install bz2)
-if(NOT IOS)
+if(NOT IOS AND NOT is_windows_store)
   list(APPEND targets_to_install bzip2recover bzip2_bin)
 endif()
 
