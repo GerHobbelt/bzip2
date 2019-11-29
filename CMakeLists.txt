@@ -115,10 +115,6 @@ if(NOT WIN32)
   install(PROGRAMS ${bzip2_scripts} DESTINATION bin)
 endif(NOT WIN32)
 
-install(FILES ${man1}          DESTINATION share/man/man1)
-install(FILES ${bzip2_docs}    DESTINATION doc)
-install(FILES ${bzip2_html}    DESTINATION doc/html)
-
 if (BUILD_TESTING)
     enable_testing()
 
