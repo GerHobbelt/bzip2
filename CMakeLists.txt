@@ -41,10 +41,12 @@ set (CPACK_PACKAGE_CONTACT "julian@bzip.org")
 
 include (CMakePackageConfigHelpers)
 include (CPack)
-include (CTest)
+#include (CTest)
 include (GNUInstallDirs)
 
 set (CMAKE_DEBUG_POSTFIX d)
+
+option(BUILD_BZIP_RECOVER "Build the Bzip2 recover executable for recovering lost data in the event of failed compression" OFF)
 
 add_library (libz2
   blocksort.c
@@ -72,24 +74,34 @@ add_executable (bzip2
 
 target_link_libraries (bzip2 PRIVATE BZip2::BZip2)
 
-add_executable (bzip2recover
-  bzip2recover.c
-)
+if (BUILD_BZIP_RECOVER)
+  add_executable (bzip2recover
+    bzip2recover.c
+  )
 
-target_link_libraries (bzip2recover PRIVATE BZip2::BZip2)
-
+  target_link_libraries (bzip2recover PRIVATE BZip2::BZip2)
+endif()
 set_target_properties (libz2 PROPERTIES EXPORT_NAME BZip2::BZip2)
 set_target_properties (libz2 PROPERTIES OUTPUT_NAME bz2)
 set_target_properties (libz2 PROPERTIES PUBLIC_HEADER bzlib.h)
 set_target_properties (libz2 PROPERTIES SOVERSION ${VERSION})
 set_target_properties (libz2 PROPERTIES VERSION ${MAJOR_VERSION})
 
-install (TARGETS libz2 bzip2 bzip2recover
+install (TARGETS libz2 bzip2
   EXPORT bzip2-targets
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT Development
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development)
+
+if (BUILD_BZIP_RECOVER)
+install (TARGETS  bzip2recover
+  EXPORT bzip2-targets
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT Development
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development)
+endif()
 
 configure_package_config_file (bzip2-config.cmake.in
   ${CMAKE_CURRENT_BINARY_DIR}/bzip2-config.cmake
