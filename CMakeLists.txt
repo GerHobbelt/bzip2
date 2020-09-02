@@ -32,7 +32,7 @@ set(CPACK_COMPONENT_LIBRARIES_GROUP Development)
 set(CPACK_COMPONENT_HEADERS_GROUP Development)
 set(CPACK_PACKAGE_NAME bzip2)
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
-        "A high-quality data compression program")
+    "A high-quality data compression program")
 set(CPACK_PACKAGE_VERSION_MAJOR ${MAJOR_VERSION})
 set(CPACK_PACKAGE_VERSION_MINOR ${MINOR_VERSION})
 set(CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH})
@@ -50,23 +50,28 @@ option(BUILD_BZIP_RECOVER "Build the Bzip2 recover executable for recovering los
 option(BUILD_BZIP_EXEC "Build the Bzip2 executable for compressing files via terminal" OFF)
 
 add_library(libz2
-        blocksort.c
-        bzlib.c
-        bzlib.h
-        bzlib_private.h
-        compress.c
-        crctable.c
-        decompress.c
-        huffman.c
-        randtable.c
-        )
+            blocksort.c
+            bzlib.c
+            bzlib.h
+            bzlib_private.h
+            compress.c
+            crctable.c
+            decompress.c
+            huffman.c
+            randtable.c
+            )
 
-if (BUILD_SHARED_LIBS)
+if (${BUILD_SHARED_LIBS})
     if (WIN32)
         target_sources(libz2 PRIVATE libbz2.def)
     endif (WIN32)
-endif (BUILD_SHARED_LIBS)
+endif ()
 
+target_include_directories(
+        libz2 PRIVATE
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}"
+)
 add_library(BZip2::BZip2 ALIAS libz2)
 
 
@@ -85,8 +90,8 @@ install(TARGETS libz2
 
 if (BUILD_BZIP_EXEC)
     add_executable(bzip2
-            bzip2.c
-            )
+                   bzip2.c
+                   )
     target_link_libraries(bzip2 PRIVATE BZip2::BZip2)
     install(TARGETS bzip2
             EXPORT bzip2-targets
@@ -96,10 +101,10 @@ if (BUILD_BZIP_EXEC)
             ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development)
 
     configure_package_config_file(bzip2-config.cmake.in
-            ${CMAKE_CURRENT_BINARY_DIR}/bzip2-config.cmake
-            INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake)
+                                  ${CMAKE_CURRENT_BINARY_DIR}/bzip2-config.cmake
+                                  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake)
     write_basic_package_version_file(bzip2-config-version.cmake
-            VERSION ${VERSION} COMPATIBILITY SameMajorVersion)
+                                     VERSION ${VERSION} COMPATIBILITY SameMajorVersion)
 
     install(PROGRAMS $<TARGET_FILE:bzip2>
             DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -137,8 +142,8 @@ install(FILES LICENSE DESTINATION
 
 if (BUILD_BZIP_RECOVER)
     add_executable(bzip2recover
-            bzip2recover.c
-            )
+                   bzip2recover.c
+                   )
 
     target_link_libraries(bzip2recover PRIVATE BZip2::BZip2)
     install(TARGETS bzip2recover
@@ -156,22 +161,22 @@ else (WIN32)
 endif (WIN32)
 
 add_test(NAME sample1 COMMAND ${CMAKE_COMMAND}
-        -DCOMPARE=${_COMPARE}
-        -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-1
-        -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample1.ref
-        -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample1.bz2
-        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
+         -DCOMPARE=${_COMPARE}
+         -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-1
+         -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample1.ref
+         -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample1.bz2
+         -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
 
 add_test(NAME sample2 COMMAND ${CMAKE_COMMAND}
-        -DCOMPARE=${_COMPARE}
-        -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-2
-        -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample2.ref
-        -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample2.bz2
-        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
+         -DCOMPARE=${_COMPARE}
+         -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-2
+         -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample2.ref
+         -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample2.bz2
+         -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
 
 add_test(NAME sample3 COMMAND ${CMAKE_COMMAND}
-        -DCOMPARE=${_COMPARE}
-        -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-3
-        -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample3.ref
-        -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample3.bz2
-        -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
+         -DCOMPARE=${_COMPARE}
+         -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-3
+         -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample3.ref
+         -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample3.bz2
+         -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
