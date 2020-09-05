@@ -156,11 +156,7 @@ if (BUILD_BZIP_RECOVER)
 
     target_link_libraries(bzip2recover PRIVATE BZip2::BZip2)
     install(TARGETS bzip2recover
-<<<<<<< HEAD
-            EXPORT libz2
-=======
             EXPORT bzip2
->>>>>>> new
             PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT Development
             RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development
