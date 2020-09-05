@@ -136,13 +136,8 @@ endif ()
 export(TARGETS libz2 NAMESPACE BZip2:: FILE bzip2.cmake)
 export(PACKAGE bzip2)
 
-<<<<<<< HEAD
-install(EXPORT libz2 NAMESPACE BZip2::
-        DESTINATION ${CMAKE_INSTALLLIBDIR}/cmake)
-=======
 install(EXPORT bzip2 NAMESPACE BZip2::
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake)
->>>>>>> new
 
 install(FILES bzip2.1 bzgrep.1 bzmore.1 bzdiff.1
         DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
