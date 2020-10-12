@@ -70,7 +70,7 @@ endif (BUILD_SHARED_LIBS)
 add_library(BZip2::BZip2 ALIAS libz2)
 
 
-set_target_properties(libz2 PROPERTIES EXPORT_NAME BZip2::BZip2)
+
 set_target_properties(libz2 PROPERTIES OUTPUT_NAME bz2)
 set_target_properties(libz2 PROPERTIES PUBLIC_HEADER bzlib.h)
 set_target_properties(libz2 PROPERTIES SOVERSION ${VERSION})
