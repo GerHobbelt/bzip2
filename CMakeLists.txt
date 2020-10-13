@@ -67,9 +67,6 @@ if (BUILD_SHARED_LIBS)
     endif (WIN32)
 endif (BUILD_SHARED_LIBS)
 
-add_library(BZip2::BZip2 ALIAS libz2)
-
-
 
 set_target_properties(libz2 PROPERTIES OUTPUT_NAME bz2)
 set_target_properties(libz2 PROPERTIES PUBLIC_HEADER bzlib.h)
@@ -86,7 +83,7 @@ install(TARGETS libz2
 install(
         EXPORT libz2
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
-        NAMESPACE BZip2::
+#        NAMESPACE BZip2::
         FILE bzip2-config.cmake
 )
 # commented out by ciaran welsh for roadrunner. The code below is for building the programs associated with bzip, not the library
