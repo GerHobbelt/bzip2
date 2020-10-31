@@ -49,7 +49,7 @@ set(CMAKE_DEBUG_POSTFIX d)
 option(BUILD_BZIP_RECOVER "Build the Bzip2 recover executable for recovering lost data in the event of failed compression" OFF)
 option(BUILD_BZIP_EXEC "Build the Bzip2 executable for compressing files via terminal" OFF)
 
-add_library(libz2
+add_library(libz2 STATIC
         blocksort.c
         bzlib.c
         bzlib.h
