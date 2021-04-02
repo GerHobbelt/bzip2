@@ -79,10 +79,13 @@ if(MSVC)
          ${CMAKE_SOURCE_DIR}/version.rc.cmakein
          ${CMAKE_CURRENT_BINARY_DIR}/version.rc
          @ONLY
-     )
-    set(bzip2_DLLSRCS
-        ${CMAKE_SOURCE_DIR}/libbz2.def
-        ${CMAKE_CURRENT_BINARY_DIR}/version.rc
+    )
+    
+    if(BUILD_SHARED_LIBS)
+        set(bzip2_DLLSRCS
+            ${CMAKE_SOURCE_DIR}/libbz2.def
+            ${CMAKE_CURRENT_BINARY_DIR}/version.rc
+        )
     )
 endif(MSVC)
 
