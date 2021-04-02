@@ -86,7 +86,7 @@ if(MSVC)
             ${CMAKE_SOURCE_DIR}/libbz2.def
             ${CMAKE_CURRENT_BINARY_DIR}/version.rc
         )
-    )
+    endif()
 endif(MSVC)
 
 add_library(${local_lib_name} ${bzip2_lib_SRCS} ${bzip2_lib_HDRS} ${bzip2_DLLSRCS})
