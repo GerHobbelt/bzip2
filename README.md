@@ -23,7 +23,7 @@ imported target named `BZip2::BZip2` that other targets can link to.
 To consume the bzip2 package configuration, use the usual `find_package`
 mechanism:
 ```cmake
-find_package (BZip2 1.0.6 REQUIRED)
+find_package (BZip2 1.0.8 REQUIRED)
 
 add_executable (myapp myapp.c)
 target_link_libraries (myapp PRIVATE BZip2::BZip2)
