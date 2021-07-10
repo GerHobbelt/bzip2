@@ -19,12 +19,16 @@
 # SOFTWARE.
 
 cmake_minimum_required (VERSION 3.1)
-project (bzip2 C)
+project(libbz2
+
+LANGUAGES C
+HOMEPAGE_URL https://www.sourceware.org/bzip2/
+DESCRIPTION "bzip2 is a freely available, patent free (see below), high-quality data compressor."
+VERSION 1.0.8)
 
 set (MAJOR_VERSION 1)
 set (MINOR_VERSION 0)
 set (VERSION_PATCH 8)
-set (VERSION 1.0.8)
 
 set (CPACK_COMPONENTS_ALL Runtime)
 set (CPACK_COMPONENT_APPLICATIONS_GROUP Runtime)
@@ -90,6 +94,8 @@ install (TARGETS libz2 bzip2 bzip2recover
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development)
+
+configure_file(libbz2.pc.in libbz2.pc @ONLY)
 
 configure_package_config_file (bzip2-config.cmake.in
   ${CMAKE_CURRENT_BINARY_DIR}/bzip2-config.cmake
