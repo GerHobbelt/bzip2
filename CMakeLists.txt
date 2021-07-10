@@ -93,6 +93,7 @@ install (TARGETS libz2 bzip2 bzip2recover
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Development)
 
+configure_file(bzip2.pc.in bzip2.pc @ONLY)
 configure_file(libbz2.pc.in libbz2.pc @ONLY)
 
 configure_package_config_file (bzip2-config.cmake.in
