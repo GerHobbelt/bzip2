@@ -4,7 +4,7 @@ bindir=@bindir@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: bzip2
+Name: libbz2
 Description: Lossless, block-sorting data compression
 Version: @VERSION@
 

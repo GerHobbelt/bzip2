@@ -19,12 +19,14 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.1)
-project(bzip2 C)
+project(libbz2
+LANGUAGES C
+HOMEPAGE_URL https://www.sourceware.org/bzip2/)
 
 set(MAJOR_VERSION 1)
 set(MINOR_VERSION 0)
-set(VERSION_PATCH 6)
-set(VERSION 1.0.6)
+set (VERSION_PATCH 8)
+set (VERSION 1.0.8)
 
 set(CPACK_COMPONENTS_ALL Runtime)
 set(CPACK_COMPONENT_APPLICATIONS_GROUP Runtime)
