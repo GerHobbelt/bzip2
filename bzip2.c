@@ -8,7 +8,7 @@
    lossless, block-sorting data compression.
 
    bzip2/libbzip2 version 1.0.6 of 6 September 2010
-   Copyright (C) 1996-2010 Julian Seward <jseward@bzip.org>
+   Copyright (C) 1996-2010 Julian Seward <jseward@acm.org>
 
    Please read the WARNING, DISCLAIMER and PATENTS sections in the 
    README file.
@@ -16,30 +16,6 @@
    This program is released under the terms of the license contained
    in the file LICENSE.
    ------------------------------------------------------------------ */
-
-
-/* Place a 1 beside your platform, and 0 elsewhere.
-   Generic 32-bit Unix.
-   Also works on 64-bit Unix boxes.
-   This is the default.
-*/
-#define BZ_UNIX      1
-
-/*--
-  Win32, as seen by Jacob Navia's excellent
-  port of (Chris Fraser & David Hanson)'s excellent
-  lcc compiler.  Or with MS Visual C.
-  This is selected automatically if compiled by a compiler which
-  defines _WIN32, not including the Cygwin GCC.
---*/
-#define BZ_LCCWIN32  0
-
-#if defined(_WIN32) && !defined(__CYGWIN__)
-#undef  BZ_LCCWIN32
-#define BZ_LCCWIN32 1
-#undef  BZ_UNIX
-#define BZ_UNIX 0
-#endif
 
 
 /*---------------------------------------------*/
@@ -128,12 +104,12 @@
 #if BZ_LCCWIN32
 #   include <io.h>
 #   include <fcntl.h>
-#   include <sys\stat.h>
+#   include <sys/stat.h>
 
 #   define NORETURN       /**/
 #   define PATH_SEP       '\\'
-#   define MY_LSTAT       _stat
-#   define MY_STAT        _stat
+#   define MY_LSTAT       _stati64
+#   define MY_STAT        _stati64
 #   define MY_S_ISREG(x)  ((x) & _S_IFREG)
 #   define MY_S_ISDIR(x)  ((x) & _S_IFDIR)
 
@@ -554,7 +530,7 @@ static
 Bool testStream ( FILE *zStream )
 {
    BZFILE* bzf = NULL;
-   Int32   bzerr, bzerr_dummy, ret, nread, streamNo, i;
+   Int32   bzerr, bzerr_dummy, ret, streamNo, i;
    UChar   obuf[5000];
    UChar   unused[BZ_MAX_UNUSED];
    Int32   nUnused;
@@ -577,7 +553,7 @@ Bool testStream ( FILE *zStream )
       streamNo++;
 
       while (bzerr == BZ_OK) {
-         nread = BZ2_bzRead ( &bzerr, bzf, obuf, 5000 );
+         BZ2_bzRead ( &bzerr, bzf, obuf, 5000 );
          if (bzerr == BZ_DATA_ERROR_MAGIC) goto errhandler;
       }
       if (bzerr != BZ_STREAM_END) goto errhandler;
@@ -749,7 +725,7 @@ void panic ( const Char* s )
              "\n%s: PANIC -- internal consistency error:\n"
              "\t%s\n"
              "\tThis is a BUG.  Please report it to me at:\n"
-             "\tjseward@bzip.org\n",
+             "\tjseward@acm.org\n",
              progName, s );
    showFileNames();
    cleanUpAndFail( 3 );
@@ -829,7 +805,7 @@ void mySIGSEGVorSIGBUScatcher ( IntNative n )
       "   The user's manual, Section 4.3, has more info on (1) and (2).\n"
       "   \n"
       "   If you suspect this is a bug in bzip2, or are unsure about (1)\n"
-      "   or (2), feel free to report it to me at: jseward@bzip.org.\n"
+      "   or (2), feel free to report it to me at: jseward@acm.org.\n"
       "   Section 4.3 of the user's manual describes the info a useful\n"
       "   bug report should have.  If the manual is available on your\n"
       "   system, please try and read it before mailing me.  If you don't\n"
@@ -852,7 +828,7 @@ void mySIGSEGVorSIGBUScatcher ( IntNative n )
       "   The user's manual, Section 4.3, has more info on (2) and (3).\n"
       "   \n"
       "   If you suspect this is a bug in bzip2, or are unsure about (2)\n"
-      "   or (3), feel free to report it to me at: jseward@bzip.org.\n"
+      "   or (3), feel free to report it to me at: jseward@acm.org.\n"
       "   Section 4.3 of the user's manual describes the info a useful\n"
       "   bug report should have.  If the manual is available on your\n"
       "   system, please try and read it before mailing me.  If you don't\n"
@@ -1600,7 +1576,7 @@ void testf ( Char *name )
 static 
 void license ( void )
 {
-   fprintf ( stderr,
+   fprintf ( stdout,
 
     "bzip2, a block-sorting file compressor.  "
     "Version %s.\n"
@@ -1890,7 +1866,9 @@ IntNative main ( IntNative argc, Char *argv[] )
                case '8': blockSize100k    = 8; break;
                case '9': blockSize100k    = 9; break;
                case 'V':
-               case 'L': license();            break;
+               case 'L': license();
+                         exit ( 0 );
+                         break;
                case 'v': verbosity++; break;
                case 'h': usage ( progName );
                          exit ( 0 );
@@ -1916,8 +1894,8 @@ IntNative main ( IntNative argc, Char *argv[] )
       if (ISFLAG("--keep"))              keepInputFiles   = True;    else
       if (ISFLAG("--small"))             smallMode        = True;    else
       if (ISFLAG("--quiet"))             noisy            = False;   else
-      if (ISFLAG("--version"))           license();                  else
-      if (ISFLAG("--license"))           license();                  else
+      if (ISFLAG("--version"))           { license(); exit ( 0 ); }  else
+      if (ISFLAG("--license"))           { license(); exit ( 0 ); }  else
       if (ISFLAG("--exponential"))       workFactor = 1;             else 
       if (ISFLAG("--repetitive-best"))   redundant(aa->name);        else
       if (ISFLAG("--repetitive-fast"))   redundant(aa->name);        else
@@ -2003,12 +1981,14 @@ IntNative main ( IntNative argc, Char *argv[] )
             testf ( aa->name );
 	 }
       }
-      if (testFailsExist && noisy) {
-         fprintf ( stderr,
-           "\n"
-           "You can use the `bzip2recover' program to attempt to recover\n"
-           "data from undamaged sections of corrupted files.\n\n"
-         );
+      if (testFailsExist) {
+         if (noisy) {
+            fprintf ( stderr,
+              "\n"
+              "You can use the `bzip2recover' program to attempt to recover\n"
+              "data from undamaged sections of corrupted files.\n\n"
+            );
+         }
          setExit(2);
          exit(exitValue);
       }
