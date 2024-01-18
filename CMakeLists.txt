@@ -299,7 +299,7 @@ endif()
 
 if(Python3_FOUND)
     enable_testing()
-    add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
+    add_custom_target(bzip2_check COMMAND ${CMAKE_CTEST_COMMAND})
     add_subdirectory(tests)
 endif()
 
