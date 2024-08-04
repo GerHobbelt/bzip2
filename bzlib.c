@@ -44,10 +44,11 @@ void BZ2_bz__AssertH__fail ( int errcode )
    fprintf(stderr,
       "\n\nbzip2/libbzip2: internal error number %d.\n"
       "This is a bug in bzip2/libbzip2, %s.\n"
-      "Please report it to: bzip2-devel@sourceware.org.  If this happened\n"
-      "when you were using some program which uses libbzip2 as a\n"
-      "component, you should also report this bug to the author(s)\n"
-      "of that program.  Please make an effort to report this bug;\n"
+      "Please report it at: https://gitlab.com/bzip2/bzip2/-/issues\n"
+      "If this happened when you were using some program which uses\n"
+      "libbzip2 as a component, you should also report this bug to\n"
+      "the author(s) of that program.\n"
+      "Please make an effort to report this bug;\n"
       "timely and accurate bug reports eventually lead to higher\n"
       "quality software.  Thanks.\n\n",
       errcode,
