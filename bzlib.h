@@ -70,8 +70,10 @@ typedef
 #define BZ_EXPORT
 #endif
 
+#define BZ_NO_STDIO
+
 #ifndef BZ_NO_STDIO
-/* Need a definitition for FILE */
+/* Need a definition for FILE */
 #include <stdio.h>
 #endif
 
@@ -96,7 +98,6 @@ typedef
 #   define BZ_API(func) func
 #   define BZ_EXTERN extern
 #endif
-
 
 /*-- Core (low-level) library functions --*/
 
