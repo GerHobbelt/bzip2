@@ -22,10 +22,8 @@ Meson works for Unix-like OSes and Windows; nmake is only for Windows.
 > So, the SONAME for libbz2 for version 1.1 is now: `libbz2.so.1`
 >
 > Distros that need it to be ABI compatible with the old SONAME may either:
-> 1. Use CMake for the build with the option `-D USE_OLD_SONAME=ON`. This will
->    require `patchelf` to be installed and will use it to change the SONAME
->    in the shared library for you.
->    It will also create an extra symlink: `libbz2.so.1.0`
+> 1. Use CMake for the build with the option `-D USE_OLD_SONAME=ON`.
+>    This will build an extra copy of the library with the old SONAME.
 >
 > 2. Use `patchelf --set-soname` after the build to change the SONAME and
 >    install an extra symlink manually: `libbz2.so.1.0 -> libbz2.so.1.0.9`
@@ -55,7 +53,7 @@ Meson will never change compilers once configured, so $CC is perfectly safe.
 
 You will need
  - Python 3.5 or newer (for Meson)
- - meson (Verison 0.48 or newer)
+ - meson (Version 0.48 or newer)
  - ninja
  - pkg-config
  - A C compiler such as GCC or Clang
