@@ -56,8 +56,9 @@ int BZ2DLLLoadLibrary(void)
 int BZ2DLLFreeLibrary(void)
 {
    if(BZ2DLLLoaded==0){return 0;}
-   FreeLibrary(BZ2DLLhLib);
+   BOOL rv = FreeLibrary(BZ2DLLhLib);
    BZ2DLLLoaded=0;
+	 return rv;
 }
 #endif /* WIN32 */
 
