@@ -7,7 +7,7 @@
    This file is part of bzip2/libbzip2, a program and library for
    lossless, block-sorting data compression.
 
-   bzip2/libbzip2 version 1.0.8 of 13 July 2019
+   bzip2/libbzip2 version 1.1.0 of 6 September 2010
    Copyright (C) 1996-2019 Julian Seward <jseward@acm.org>
 
    Please read the WARNING, DISCLAIMER and PATENTS sections in the
@@ -152,6 +152,13 @@
 
 #endif /* BZ_LCCWIN32 */
 
+#if _WIN32
+#define fileno          _fileno
+#define write           _write
+#define isatty          _isatty
+#define setmode         _setmode
+#define STDERR_FILENO   _fileno(stderr)
+#endif
 
 /*---------------------------------------------*/
 /*--

@@ -17,14 +17,33 @@ found at https://sourceware.org/git/?p=bzip2.git
 
 Build system changes:
 
-* Instead of the historical Makefile, bzip2 now comes with two supported build
-  systems (Meson and CMake), and an unsupported one (makefile.msc).
+* Instead of the historical Makefile, Bzip2 now comes with two supported build
+  systems (Meson and CMake).
   Either of the supported ones should build a shared library as per modern
   practices. Please see the file [COMPILING.md](COMPILING.md) for details.
 
+Important note when compiling for Linux:
+
+* The SONAME for libbz2 for version 1.0 was: `libbz2.so.1.0`
+  Some distros patched it to `libbz2.so.1` to be supported by libtool.
+  Others did not.
+
+  We had to make a choice when switching from Makefiles -> CMake + Meson.
+  So, the SONAME for libbz2 for version 1.1 is now: `libbz2.so.1`
+
+  Distros that need it to be ABI compatible with the old SONAME may either:
+
+  1. Use CMake for the build with the option `-D USE_OLD_SONAME=ON`.
+     This will build an extra copy of the library with the old SONAME.
+
+  2. Use `patchelf --set-soname` after the build to change the SONAME and
+    install an extra symlink manually: `libbz2.so.1.0 -> libbz2.so.1.0.9`
+
+  You can check the SONAME with: `objdump -p libbz2.so.1.0.9 | grep SONAME`
+
 Other changes, fixes:
 
-* Use `O_CLOEXEC` for `bzopen()`. (Federico Mena Quitero)
+* Use `O_CLOEXEC` for `bzopen()`. (Federico Mena Quintero)
 
 * Fix `mingw` compilation. (Marty E. Plummer, Dylan Baker)
 
@@ -39,7 +58,7 @@ Other changes, fixes:
   and interesting anecdotes.
 
 * Mark Wielaard for constructing a repository based on tarballs from
-  the original releases.  For a different construction by Evan Nemerson, see
+  the original releases. For a different construction by Evan Nemerson, see
   https://gitlab.com/bzip2/bzip2/issues/7
 
 * Federico Mena Quintero for his maintainership of the project June 2019 -
@@ -68,7 +87,7 @@ Other changes, fixes:
 
 * Accept as many selectors as the file format allows.
   This relaxes the fix for CVE-2019-12900 from 1.0.7
-  so that bzip2 allows decompression of `.bz2` files that
+  so that Bzip2 allows decompression of `.bz2` files that
   use (too) many selectors again.
 
 * Fix handling of large (> 4GB) files on Windows. (Phil Ross)
@@ -438,7 +457,7 @@ First version after 0.1pl2.
  This file is part of bzip2/libbzip2, a program and library for
  lossless, block-sorting data compression.
 
- bzip2/libbzip2 version 1.0.6 of 6 September 2010
+ bzip2/libbzip2 version 1.1.0 of 6 September 2010
  Copyright (C) 1996-2010 Julian Seward <jseward@acm.org>
 
  Please read the WARNING, DISCLAIMER and PATENTS sections in the
