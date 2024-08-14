@@ -37,11 +37,11 @@
 typedef unsigned char uchar;
 
 #define M_BLOCK_OUT (M_BLOCK + 1000000)
-uchar inbuf[M_BLOCK];
-uchar outbuf[M_BLOCK_OUT];
-uchar zbuf[M_BLOCK + 600 + (M_BLOCK / 100)];
+static uchar inbuf[M_BLOCK];
+static uchar outbuf[M_BLOCK_OUT];
+static uchar zbuf[M_BLOCK + 600 + (M_BLOCK / 100)];
 
-int nIn, nOut, nZ;
+static int nIn, nOut, nZ;
 
 static char *bzerrorstrings[] = {
        "OK"
@@ -61,7 +61,7 @@ static char *bzerrorstrings[] = {
       ,"???"   /* for future */
 };
 
-void flip_bit ( int bit )
+static void flip_bit ( int bit )
 {
    int byteno = bit / 8;
    int bitno  = bit % 8;
@@ -71,7 +71,12 @@ void flip_bit ( int bit )
    zbuf[byteno] ^= mask;
 }
 
-int main ( int argc, char** argv )
+
+#if defined(BUILD_MONOLITHIC)
+#define main      bzip2_unzcrash_main
+#endif
+
+int main ( int argc, const char** argv )
 {
    FILE* f;
    int   r;

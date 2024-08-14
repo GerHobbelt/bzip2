@@ -66,12 +66,12 @@ typedef  unsigned char  Bool;
 
 #define BZ_MAX_FILENAME 2000
 
-Char inFileName[BZ_MAX_FILENAME];
-Char outFileName[BZ_MAX_FILENAME];
-Char progName[BZ_MAX_FILENAME];
+static Char inFileName[BZ_MAX_FILENAME];
+static Char outFileName[BZ_MAX_FILENAME];
+static Char progName[BZ_MAX_FILENAME];
 
-MaybeUInt64 bytesOut = 0;
-MaybeUInt64 bytesIn  = 0;
+static MaybeUInt64 bytesOut = 0;
+static MaybeUInt64 bytesIn  = 0;
 
 
 /*---------------------------------------------------*/
@@ -321,12 +321,17 @@ FILE* fopen_output_safely ( Char* name, const char* mode )
 */
 #define BZ_MAX_HANDLED_BLOCKS 50000
 
-MaybeUInt64 bStart [BZ_MAX_HANDLED_BLOCKS];
-MaybeUInt64 bEnd   [BZ_MAX_HANDLED_BLOCKS];
-MaybeUInt64 rbStart[BZ_MAX_HANDLED_BLOCKS];
-MaybeUInt64 rbEnd  [BZ_MAX_HANDLED_BLOCKS];
+static MaybeUInt64 bStart [BZ_MAX_HANDLED_BLOCKS];
+static MaybeUInt64 bEnd   [BZ_MAX_HANDLED_BLOCKS];
+static MaybeUInt64 rbStart[BZ_MAX_HANDLED_BLOCKS];
+static MaybeUInt64 rbEnd  [BZ_MAX_HANDLED_BLOCKS];
 
-Int32 main ( Int32 argc, Char** argv )
+
+#if defined(BUILD_MONOLITHIC)
+#define main      bzip2_recover_main
+#endif
+
+Int32 main ( Int32 argc, const Char** argv )
 {
    FILE*       inFile;
    FILE*       outFile;

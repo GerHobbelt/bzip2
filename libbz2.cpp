@@ -7,16 +7,17 @@
 #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
 #endif
 
+#undef BZ2_STATICLIB
 #define BZ2_STATICLIB
 #define register
 
-#include "../ext/bzip2/blocksort.c"
-#include "../ext/bzip2/huffman.c"
-#include "../ext/bzip2/crctable.c"
-#include "../ext/bzip2/randtable.c"
-#include "../ext/bzip2/compress.c"
-#include "../ext/bzip2/decompress.c"
-#include "../ext/bzip2/bzlib.c"
+#include "./blocksort.c"
+#include "./huffman.c"
+#include "./crctable.c"
+#include "./randtable.c"
+#include "./compress.c"
+#include "./decompress.c"
+#include "./bzlib.c"
 
 // required when compiling with BZ_NO_STDIO
 void bz_internal_error(int errcode)

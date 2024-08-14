@@ -22,6 +22,8 @@
 #ifndef _BZLIB_PRIVATE_H
 #define _BZLIB_PRIVATE_H
 
+#include "bzlib.h"
+
 #include <stdlib.h>
 
 #ifndef BZ_NO_STDIO
@@ -30,13 +32,13 @@
 #include <string.h>
 #endif
 
-#include "bzlib.h"
+#include "bz_version.h"
 
 
 
 /*-- General stuff. --*/
 
-#define BZ_VERSION  "1.0.8, 13-Jul-2019"
+//#define BZ_VERSION  "1.0.8, 13-Jul-2019"
 
 typedef char            Char;
 typedef unsigned char   Bool;

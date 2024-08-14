@@ -56,6 +56,8 @@
 #include <ctype.h>
 #include "bzlib.h"
 
+#ifndef BZ_NO_STDIO
+
 #define ERROR_IF_EOF(i)       { if ((i) == EOF)  ioError(); }
 #define ERROR_IF_NOT_ZERO(i)  { if ((i) != 0)    ioError(); }
 #define ERROR_IF_MINUS_ONE(i) { if ((i) == (-1)) ioError(); }
@@ -1788,7 +1790,12 @@ void addFlagsFromEnvVar ( Cell** argList, Char* varName )
 /*---------------------------------------------*/
 #define ISFLAG(s) (strcmp(aa->name, (s))==0)
 
-IntNative main ( IntNative argc, Char *argv[] )
+
+#if defined(BUILD_MONOLITHIC)
+#define main      bzip2_tool_main
+#endif
+
+IntNative main ( IntNative argc, const Char **argv )
 {
    Int32  i, j;
    Char   *tmp;
@@ -2047,6 +2054,7 @@ IntNative main ( IntNative argc, Char *argv[] )
    return exitValue;
 }
 
+#endif // #ifndef BZ_NO_STDIO
 
 /*-----------------------------------------------------------*/
 /*--- end                                         bzip2.c ---*/
