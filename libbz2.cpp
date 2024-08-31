@@ -19,8 +19,13 @@
 #include "./decompress.c"
 #include "./bzlib.c"
 
+#if !defined(BUILD_MONOLITHIC)
+
 // required when compiling with BZ_NO_STDIO
 void bz_internal_error(int errcode)
 {
     assert(0 && errcode);
 }
+
+#endif
+
